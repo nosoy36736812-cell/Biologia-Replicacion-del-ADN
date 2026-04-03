@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Replicación del ADN — Biología 12vo</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0e0f11;--bg2:#16181c;--bg3:#1e2028;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#f0f0f2;--muted:#8a8f9e;--accent:#4ade80;--accent2:#22d3ee;--accent3:#f59e0b;--accent4:#f87171;--accent5:#a78bfa;--accent-dim:rgba(74,222,128,0.12);--accent2-dim:rgba(34,211,238,0.12);--accent3-dim:rgba(245,158,11,0.12);--accent4-dim:rgba(248,113,113,0.12);--accent5-dim:rgba(167,139,250,0.12);--radius:12px;--radius-sm:8px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.7;min-height:100vh;display:flex}
+#sidebar{width:220px;min-height:100vh;background:var(--bg2);border-right:1px solid var(--border);padding:24px 0;position:fixed;top:0;left:0;z-index:100;display:flex;flex-direction:column}
+.logo{padding:0 20px 24px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.logo-tag{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.logo-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--text)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;border-left:2px solid transparent;transition:all .2s;color:var(--muted);font-size:13px}
+.nav-item:hover{color:var(--text);background:var(--bg3)}
+.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-dim)}
+.nav-num{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;background:var(--border);flex-shrink:0}
+.nav-item.active .nav-num{background:var(--accent);color:#000}
+.nav-badge{font-size:9px;padding:1px 6px;border-radius:99px;background:var(--accent3-dim);color:var(--accent3);border:1px solid rgba(245,158,11,0.3);margin-left:auto}
+#main{margin-left:220px;flex:1;padding:40px 48px;max-width:960px}
+section{display:none;animation:fadeIn .3s ease}
+section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+h1{font-family:'Syne',sans-serif;font-size:30px;font-weight:800;line-height:1.2;margin-bottom:8px}
+h2{font-family:'Syne',sans-serif;font-size:19px;font-weight:700;margin:28px 0 14px;color:var(--text)}
+h3{font-family:'Syne',sans-serif;font-size:15px;font-weight:600;margin:16px 0 8px}
+p{color:#c8cad4;margin-bottom:12px}
+.section-label{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 22px;margin-bottom:14px}
+.card-green{border-color:rgba(74,222,128,0.25);background:rgba(74,222,128,0.05)}
+.card-cyan{border-color:rgba(34,211,238,0.25);background:rgba(34,211,238,0.05)}
+.card-amber{border-color:rgba(245,158,11,0.25);background:rgba(245,158,11,0.05)}
+.card-red{border-color:rgba(248,113,113,0.25);background:rgba(248,113,113,0.05)}
+.card-purple{border-color:rgba(167,139,250,0.25);background:rgba(167,139,250,0.05)}
+.alert{display:flex;gap:12px;padding:12px 16px;border-radius:var(--radius-sm);margin-bottom:12px;font-size:14px}
+.alert-icon{font-size:15px;margin-top:1px;flex-shrink:0}
+.alert-green{background:var(--accent-dim);border:1px solid rgba(74,222,128,0.2);color:#a7f3c0}
+.alert-amber{background:var(--accent3-dim);border:1px solid rgba(245,158,11,0.2);color:#fcd68a}
+.alert-red{background:var(--accent4-dim);border:1px solid rgba(248,113,113,0.2);color:#fca5a5}
+.alert-cyan{background:var(--accent2-dim);border:1px solid rgba(34,211,238,0.2);color:#a5f3fc}
+.alert-purple{background:var(--accent5-dim);border:1px solid rgba(167,139,250,0.2);color:#c4b5fd}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th{background:var(--bg3);padding:9px 12px;text-align:left;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border2)}
+td{padding:9px 12px;border-bottom:1px solid var(--border);color:#c8cad4;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg3)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
+.btn:hover{background:var(--border)}
+.btn.active-btn{background:var(--accent);color:#000;border-color:var(--accent);font-weight:500}
+.btn-group{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tab-content{display:none}
+.tab-content.active{display:block;animation:fadeIn .2s ease}
+hr{border:none;border-top:1px solid var(--border);margin:22px 0}
+.enzyme-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.enzyme-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;transition:all .2s}
+.enzyme-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.enzyme-card.expanded{border-color:var(--accent);background:rgba(74,222,128,0.04)}
+.enzyme-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:3px}
+.enzyme-short{font-size:12px;color:var(--muted)}
+.enzyme-detail{margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:13px;color:#c8cad4;display:none}
+.enzyme-card.expanded .enzyme-detail{display:block}
+.quiz-question{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 22px;margin-bottom:14px}
+.quiz-q{font-family:'Syne',sans-serif;font-size:14px;font-weight:600;margin-bottom:12px}
+.quiz-opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:var(--radius-sm);border:1px solid var(--border);margin-bottom:7px;cursor:pointer;transition:all .2s;font-size:14px;color:#c8cad4}
+.quiz-opt:hover{border-color:var(--border2);background:var(--bg3)}
+.quiz-opt.correct{border-color:var(--accent);background:var(--accent-dim);color:var(--accent);pointer-events:none}
+.quiz-opt.wrong{border-color:var(--accent4);background:var(--accent4-dim);color:var(--accent4);pointer-events:none}
+.quiz-opt.disabled{pointer-events:none;opacity:0.5}
+.quiz-letter{width:20px;height:20px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0;margin-top:2px}
+.vf-opt{display:flex;gap:10px;padding:9px 12px;border-radius:var(--radius-sm);border:1px solid var(--border);margin-bottom:7px;cursor:pointer;font-size:14px;transition:all .2s;color:#c8cad4}
+.vf-opt:hover{border-color:var(--border2);background:var(--bg3)}
+.vf-opt.vf-correct{border-color:var(--accent);background:var(--accent-dim);color:var(--accent);pointer-events:none}
+.vf-opt.vf-wrong{border-color:var(--accent4);background:var(--accent4-dim);color:var(--accent4);pointer-events:none}
+.vf-opt.disabled{pointer-events:none;opacity:0.5}
+.score-bar{background:var(--bg3);border-radius:99px;height:6px;margin:8px 0}
+.score-fill{height:100%;border-radius:99px;background:var(--accent);transition:width .5s ease}
+.hero-strip{display:flex;gap:10px;margin:18px 0}
+.hero-stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;flex:1;text-align:center}
+.hero-num{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--accent)}
+.hero-label{font-size:11px;color:var(--muted);margin-top:2px}
+.imp-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--accent3-dim);color:var(--accent3);border:1px solid rgba(245,158,11,0.3);margin-left:6px;vertical-align:middle}
+.mnemo{background:var(--accent5-dim);border:1px solid rgba(167,139,250,0.25);border-radius:var(--radius-sm);padding:10px 14px;margin:10px 0;font-size:13px;color:#c4b5fd}
+.mnemo strong{color:var(--accent5)}
+.analogy{border-left:3px solid var(--accent3);background:var(--accent3-dim);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:10px 14px;margin:10px 0;font-size:13px;color:#fcd68a;font-style:italic}
+.model-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px}
+.model-card{border:1px solid var(--border);border-radius:var(--radius);padding:14px;cursor:pointer;transition:all .2s;text-align:center}
+.model-card:hover{border-color:var(--border2)}
+.model-card.selected-m{border-color:var(--accent);background:var(--accent-dim)}
+.model-card-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:4px}
+.model-detail{background:var(--bg3);border-radius:var(--radius-sm);padding:14px;display:none;margin-bottom:12px}
+.model-detail.show{display:block}
+.dna-strand{display:flex;justify-content:center;gap:20px;align-items:center;margin-bottom:16px}
+.strand-pair{display:flex;flex-direction:column;align-items:center;gap:4px}
+.strand-bar{width:55px;height:13px;border-radius:4px}
+.strand-heavy{background:#f59e0b}
+.strand-light{background:#22d3ee}
+.strand-label{font-size:10px;color:var(--muted);text-align:center;margin-top:3px}
+.step-flow{display:flex;flex-direction:column;gap:0}
+.step-item{display:flex;gap:14px;position:relative;padding-bottom:18px}
+.step-item:last-child{padding-bottom:0}
+.step-line{display:flex;flex-direction:column;align-items:center}
+.step-dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;flex-shrink:0}
+.step-connector{width:2px;flex:1;background:var(--border2);margin:4px 0}
+.step-item:last-child .step-connector{display:none}
+.step-body{padding-top:4px;flex:1}
+.step-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:3px}
+.step-desc{font-size:13px;color:#c8cad4}
+.error-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:7px;overflow:hidden}
+.error-header{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;cursor:pointer;transition:background .2s}
+.error-header:hover{background:var(--bg3)}
+.error-icon{font-size:15px;flex-shrink:0}
+.error-text{font-size:14px;color:#c8cad4;flex:1}
+.error-expand{color:var(--muted);font-size:11px;margin-left:auto;flex-shrink:0;margin-top:2px}
+.error-body{padding:0 14px 12px 38px;font-size:13px;color:var(--accent);display:none;border-top:1px solid var(--border)}
+.error-body.show{display:block;padding-top:10px}
+.telo-display{background:var(--bg3);border-radius:var(--radius);padding:18px;margin:14px 0}
+.chromosome-viz{display:flex;align-items:center;justify-content:center;gap:6px;margin:14px 0}
+.chrom-body{height:28px;background:#4ade80;border-radius:3px;transition:width .4s ease}
+.telo-cap{height:28px;background:#f59e0b;border-radius:3px;transition:width .4s ease}
+input[type=range]{width:100%;margin:10px 0;accent-color:var(--accent)}
+.cheat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cheat-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px}
+.cheat-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:8px}
+.cheat-item{font-size:12px;color:#c8cad4;padding:3px 0;border-bottom:1px solid var(--border);display:flex;gap:8px}
+.cheat-item:last-child{border-bottom:none}
+.cheat-key{font-weight:500;color:var(--text);min-width:95px;flex-shrink:0}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+</style>
+</head>
+<body>
+
+<nav id="sidebar">
+  <div class="logo">
+    <div class="logo-tag">Biología · 12vo Grado</div>
+    <div class="logo-title">Replicación<br>del ADN</div>
+  </div>
+  <div class="nav-item active" onclick="showSection('inicio',this)"><span class="nav-num">1</span> Resumen</div>
+  <div class="nav-item" onclick="showSection('modelos',this)"><span class="nav-num">2</span> Modelos</div>
+  <div class="nav-item" onclick="showSection('meselson',this)"><span class="nav-num">3</span> Meselson &amp; Stahl</div>
+  <div class="nav-item" onclick="showSection('taylor',this)"><span class="nav-num">4</span> Taylor &amp; Guts</div>
+  <div class="nav-item" onclick="showSection('etapas',this)"><span class="nav-num">5</span> Etapas</div>
+  <div class="nav-item" onclick="showSection('enzimas',this)"><span class="nav-num">6</span> Enzimas</div>
+  <div class="nav-item" onclick="showSection('telomeros',this)"><span class="nav-num">7</span> Telómeros <span class="nav-badge">Nuevo</span></div>
+  <div class="nav-item" onclick="showSection('errores',this)"><span class="nav-num">8</span> Errores comunes</div>
+  <div class="nav-item" onclick="showSection('practica',this)"><span class="nav-num">9</span> Práctica</div>
+  <div class="nav-item" onclick="showSection('cheatsheet',this)"><span class="nav-num">10</span> Cheatsheet</div>
+</nav>
+
+<main id="main">
+
+<!-- INICIO -->
+<section id="inicio" class="active">
+  <div class="section-label">Lee esto primero</div>
+  <h1>Replicación del ADN</h1>
+  <p style="color:var(--muted);font-size:15px;margin-bottom:18px">Guía completa · Biología Molecular · 12vo Grado</p>
+  <div class="alert alert-amber">
+    <span class="alert-icon">★</span>
+    <div><strong>Lo más probable en el examen:</strong> Experimento Meselson &amp; Stahl, Experimento Taylor &amp; Guts, funciones de cada enzima, diferencia hebra conductora vs rezagada, fragmentos de Okazaki.</div>
+  </div>
+  <div class="hero-strip">
+    <div class="hero-stat"><div class="hero-num">3</div><div class="hero-label">Etapas</div></div>
+    <div class="hero-stat"><div class="hero-num">7</div><div class="hero-label">Enzimas clave</div></div>
+    <div class="hero-stat"><div class="hero-num">5'→3'</div><div class="hero-label">Única dirección</div></div>
+    <div class="hero-stat"><div class="hero-num">Semi</div><div class="hero-label">Conservativa</div></div>
+  </div>
+  <h2>¿Qué es la replicación?</h2>
+  <div class="card card-green">
+    <p style="margin:0;color:#a7f3c0;font-size:14px">Proceso por el cual una célula <strong>duplica exactamente su ADN</strong> antes de dividirse. Cada célula hija recibe una copia idéntica del genoma completo.</p>
+  </div>
+  <div class="analogy">Como fotocopiar el manual de instrucciones de una fábrica antes de construir una segunda. Cada fábrica nueva necesita sus propias instrucciones completas.</div>
+  <h2>Características fundamentales</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="color:var(--accent)">Reglas que nunca cambian</h3>
+      <ul style="list-style:none;font-size:13px;color:#c8cad4">
+        <li style="padding:4px 0;border-bottom:1px solid var(--border)">✦ Siempre en dirección <strong>5'→ 3'</strong></li>
+        <li style="padding:4px 0;border-bottom:1px solid var(--border)">✦ Modelo <strong>semiconservativo</strong></li>
+        <li style="padding:4px 0;border-bottom:1px solid var(--border)">✦ Replicación <strong>bidireccional</strong></li>
+        <li style="padding:4px 0">✦ Requiere <strong>cebador de ARN</strong> para iniciar</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent2)">¿Cuándo ocurre?</h3>
+      <p style="font-size:13px;color:#c8cad4">En la <strong>fase S</strong> del ciclo celular, antes de mitosis o meiosis. En procariotas: 1 origen. En eucariotas: miles de orígenes simultáneos.</p>
+    </div>
+  </div>
+  <h2>Navega por la guía</h2>
+  <div class="grid-2">
+    <div class="card" style="cursor:pointer" onclick="showSection('modelos',document.querySelectorAll('.nav-item')[1])"><span style="color:var(--accent5);font-weight:600">§2 Modelos</span> — Conservativo, semiconservativo, dispersivo</div>
+    <div class="card" style="cursor:pointer" onclick="showSection('meselson',document.querySelectorAll('.nav-item')[2])"><span style="color:var(--accent3);font-weight:600">§3 Meselson &amp; Stahl ★</span> — El experimento clave</div>
+    <div class="card" style="cursor:pointer;border-color:#fde68a;background:rgba(254,243,199,.08)" onclick="showSection('taylor',document.querySelectorAll('.nav-item')[3])"><span style="color:#d97706;font-weight:600">§4 Taylor &amp; Guts ★</span> — Eucariotas · <em>Vicia faba</em> · Probable en el ejercicio</div>
+    <div class="card" style="cursor:pointer" onclick="showSection('etapas',document.querySelectorAll('.nav-item')[4])"><span style="color:var(--accent2);font-weight:600">§5 Etapas</span> — Iniciación, Elongación, Terminación</div>
+    <div class="card" style="cursor:pointer" onclick="showSection('enzimas',document.querySelectorAll('.nav-item')[5])"><span style="color:var(--accent);font-weight:600">§6 Enzimas</span> — Quién hace qué y cuándo</div>
+    <div class="card" style="cursor:pointer" onclick="showSection('telomeros',document.querySelectorAll('.nav-item')[6])"><span style="color:var(--accent4);font-weight:600">§7 Telómeros ★ NUEVO</span> — Envejecimiento y cáncer</div>
+    <div class="card" style="cursor:pointer" onclick="showSection('practica',document.querySelectorAll('.nav-item')[8])"><span style="color:var(--accent5);font-weight:600">§9 Práctica</span> — 5 preguntas interactivas</div>
+  </div>
+</section>
+
+<!-- MODELOS -->
+<section id="modelos">
+  <div class="section-label">Sección 2</div>
+  <h1>Los 3 modelos de replicación</h1>
+  <p>Antes de confirmar cómo ocurre la replicación, existían tres hipótesis. Haz clic en cada una.</p>
+  <div class="model-grid">
+    <div class="model-card" id="m1" onclick="selectModel(1)">
+      <div style="font-size:22px;margin-bottom:6px">🔵</div>
+      <div class="model-card-title">Conservativo</div>
+      <div style="font-size:12px;color:var(--muted)">La original se conserva intacta</div>
+    </div>
+    <div class="model-card" id="m2" onclick="selectModel(2)">
+      <div style="font-size:22px;margin-bottom:6px">🟢</div>
+      <div class="model-card-title">Semiconservativo</div>
+      <div style="font-size:12px;color:var(--muted)">1 cadena vieja + 1 nueva</div>
+    </div>
+    <div class="model-card" id="m3" onclick="selectModel(3)">
+      <div style="font-size:22px;margin-bottom:6px">🟡</div>
+      <div class="model-card-title">Dispersivo</div>
+      <div style="font-size:12px;color:var(--muted)">Viejo y nuevo mezclados al azar</div>
+    </div>
+  </div>
+  <div class="model-detail" id="md1">
+    <h3 style="color:var(--accent4)">Conservativo ❌ Descartado</h3>
+    <p style="font-size:13px">La doble hélice original se mantiene intacta y la célula produce una copia completamente nueva.</p>
+    <div class="alert alert-red"><span class="alert-icon">✗</span><div>Gen 1 predeciría una banda pesada + una ligera separadas. No se observó esto.</div></div>
+  </div>
+  <div class="model-detail" id="md2">
+    <h3 style="color:var(--accent)">Semiconservativo ✓ CORRECTO</h3>
+    <p style="font-size:13px">Cada cadena se separa y sirve de molde. Cada molécula hija tiene <strong>1 cadena parental + 1 nueva</strong>. La hebra vieja dicta el orden de las bases de la hebra nueva.</p>
+    <div class="alert alert-green"><span class="alert-icon">✓</span><div>Gen 1: solo banda híbrida. Gen 2: híbrida + ligera. Exactamente lo observado.</div></div>
+  </div>
+  <div class="model-detail" id="md3">
+    <h3 style="color:var(--accent4)">Dispersivo ❌ Descartado</h3>
+    <p style="font-size:13px">El ADN original se fragmenta y los pedazos viejos y nuevos se mezclan al azar en ambas moléculas hijas.</p>
+    <div class="alert alert-red"><span class="alert-icon">✗</span><div>Gen 2 predeciría solo banda híbrida, pero apareció una banda ligera pura — lo descarta.</div></div>
+  </div>
+  <hr>
+  <h2>Comparativa rápida</h2>
+  <table>
+    <tr><th>Modelo</th><th>Gen 1</th><th>Gen 2</th><th>¿Correcto?</th></tr>
+    <tr><td>Conservativo</td><td>Pesada + Ligera</td><td>Pesada + 2 Ligeras</td><td style="color:var(--accent4)">No ✗</td></tr>
+    <tr><td>Semiconservativo</td><td>Solo híbrida</td><td>Híbrida + Ligera</td><td style="color:var(--accent)">Sí ✓</td></tr>
+    <tr><td>Dispersivo</td><td>Solo híbrida</td><td>Solo híbrida</td><td style="color:var(--accent4)">No ✗</td></tr>
+  </table>
+</section>
+
+<!-- MESELSON -->
+<section id="meselson">
+  <div class="section-label">Sección 3 — Experimento estrella</div>
+  <h1>Meselson &amp; Stahl <span class="imp-badge">★ Examen</span></h1>
+  <p>1958 — Confirmó el modelo semiconservativo usando isótopos de nitrógeno y centrifugación en CsCl.</p>
+  <div class="grid-2">
+    <div class="card card-cyan">
+      <h3 style="color:var(--accent2)">¹⁵N vs ¹⁴N</h3>
+      <p style="font-size:13px;color:#a5f3fc"><em>E. coli</em> creció en ¹⁵N (pesado) → ADN pesado. Luego se pasó a ¹⁴N (ligero) → ADN ligero. Las diferencias de densidad crean bandas visibles al centrifugar.</p>
+    </div>
+    <div class="card card-amber">
+      <h3 style="color:var(--accent3)">Centrifugación CsCl</h3>
+      <p style="font-size:13px;color:#fcd68a">El ADN más pesado se hunde más. Distintas densidades forman bandas en diferentes alturas del tubo de centrifugación.</p>
+    </div>
+  </div>
+  <h2>Generación por generación</h2>
+  <div class="btn-group">
+    <button class="btn active-btn" onclick="showGen(0,this)">Gen 0</button>
+    <button class="btn" onclick="showGen(1,this)">Gen 1</button>
+    <button class="btn" onclick="showGen(2,this)">Gen 2</button>
+    <button class="btn" onclick="showGen(3,this)">Gen 3+</button>
+  </div>
+  <div style="background:var(--bg3);border-radius:var(--radius);padding:20px">
+    <div id="gen0" class="tab-content active">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Todo el ADN es ¹⁵N — pesado</p>
+      <div class="dna-strand">
+        <div class="strand-pair"><div class="strand-bar strand-heavy"></div><div class="strand-bar strand-heavy"></div><div class="strand-label">Pesada</div></div>
+        <div class="strand-pair"><div class="strand-bar strand-heavy"></div><div class="strand-bar strand-heavy"></div><div class="strand-label">Pesada</div></div>
+      </div>
+      <p style="text-align:center;font-size:12px;color:var(--muted)">1 banda pesada · Los 3 modelos predicen lo mismo aquí</p>
+    </div>
+    <div id="gen1" class="tab-content">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Primera división en ¹⁴N. Cada molécula = 1 pesada + 1 ligera</p>
+      <div class="dna-strand">
+        <div class="strand-pair"><div class="strand-bar strand-heavy"></div><div class="strand-bar strand-light"></div><div class="strand-label">Híbrida</div></div>
+        <div class="strand-pair"><div class="strand-bar strand-heavy"></div><div class="strand-bar strand-light"></div><div class="strand-label">Híbrida</div></div>
+      </div>
+      <div class="alert alert-green"><span class="alert-icon">★</span><div style="font-size:12px">Solo banda híbrida → descarta modelo <strong>conservativo</strong> (que predeciría pesada + ligera separadas)</div></div>
+    </div>
+    <div id="gen2" class="tab-content">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Segunda división. Las híbridas se separan: 2 híbridas + 2 ligeras</p>
+      <div class="dna-strand">
+        <div class="strand-pair"><div class="strand-bar strand-heavy"></div><div class="strand-bar strand-light"></div><div class="strand-label">Híbrida</div></div>
+        <div class="strand-pair"><div class="strand-bar strand-light"></div><div class="strand-bar strand-light"></div><div class="strand-label">Ligera</div></div>
+        <div class="strand-pair"><div class="strand-bar strand-heavy"></div><div class="strand-bar strand-light"></div><div class="strand-label">Híbrida</div></div>
+        <div class="strand-pair"><div class="strand-bar strand-light"></div><div class="strand-bar strand-light"></div><div class="strand-label">Ligera</div></div>
+      </div>
+      <div class="alert alert-green"><span class="alert-icon">★</span><div style="font-size:12px">Banda híbrida + banda ligera → descarta <strong>dispersivo</strong> (que predeciría solo híbrida). Confirma semiconservativo.</div></div>
+    </div>
+    <div id="gen3" class="tab-content">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Más divisiones: ¼ híbrida · ¾ ligera. La pesada persiste solo en las híbridas.</p>
+      <div class="dna-strand" style="gap:10px">
+        <div class="strand-pair"><div class="strand-bar strand-heavy"></div><div class="strand-bar strand-light"></div><div class="strand-label" style="font-size:10px">Híbrida</div></div>
+        <div class="strand-pair"><div class="strand-bar strand-light"></div><div class="strand-bar strand-light"></div><div class="strand-label" style="font-size:10px">Ligera</div></div>
+        <div class="strand-pair"><div class="strand-bar strand-light"></div><div class="strand-bar strand-light"></div><div class="strand-label" style="font-size:10px">Ligera</div></div>
+        <div class="strand-pair"><div class="strand-bar strand-light"></div><div class="strand-bar strand-light"></div><div class="strand-label" style="font-size:10px">Ligera</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;gap:14px;font-size:12px;flex-wrap:wrap;margin-top:12px">
+    <div style="display:flex;align-items:center;gap:7px"><div style="width:28px;height:11px;background:#f59e0b;border-radius:3px"></div>Cadena pesada (¹⁵N)</div>
+    <div style="display:flex;align-items:center;gap:7px"><div style="width:28px;height:11px;background:#22d3ee;border-radius:3px"></div>Cadena ligera (¹⁴N)</div>
+  </div>
+  <hr>
+  <h2>Por qué descarta cada modelo</h2>
+  <table>
+    <tr><th>Generación</th><th>Observado</th><th>Modelo descartado</th></tr>
+    <tr><td>Gen 1</td><td>Solo 1 banda híbrida</td><td style="color:var(--accent4)">Conservativo (predeciría 2 bandas separadas)</td></tr>
+    <tr><td>Gen 2</td><td>Híbrida + ligera</td><td style="color:var(--accent4)">Dispersivo (predeciría solo híbrida)</td></tr>
+    <tr><td>Gen 2+</td><td>La pesada persiste en híbridas</td><td style="color:var(--accent)">Confirma semiconservativo ✓</td></tr>
+  </table>
+</section>
+
+<!-- TAYLOR -->
+<section id="taylor">
+  <div class="section-label">Sección 4 — Experimento complementario</div>
+  <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:.4rem">
+    <h1 style="margin:0">Experimento de Taylor &amp; Guts (1957–1958)</h1>
+    <span style="background:#fef9c3;color:#854d0e;font-size:12px;font-weight:700;padding:.3rem .75rem;border-radius:99px;border:1.5px solid #fde68a;white-space:nowrap">★ Probable en el ejercicio</span>
+  </div>
+  <p class="section-intro" style="margin-bottom:1.25rem">Meselson &amp; Stahl → procariotas. Taylor &amp; Guts → <strong>eucariotas</strong> (<em>Vicia faba</em>). Misma conclusión, distinto organismo.</p>
+
+  <!-- LEGEND -->
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center">
+    <span style="font-size:12px;color:var(--text2);font-weight:600">Leyenda:</span>
+    <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text2)"><span style="display:inline-block;width:18px;height:10px;background:#f59e0b;border-radius:3px"></span>³H marcada (radiactiva)</span>
+    <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text2)"><span style="display:inline-block;width:18px;height:10px;background:#d1d5db;border-radius:3px"></span>No marcada</span>
+    <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text2)"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f59e0b;box-shadow:0 0 0 2px #fef3c7"></span>Granos (autorradiografía)</span>
+  </div>
+
+  <!-- INTERACTIVE STEPPER -->
+  <div style="background:var(--surface);border:1px solid var(--border-col);border-radius:14px;overflow:hidden;margin-bottom:1.25rem">
+    <!-- Step nav -->
+    <div style="display:flex;border-bottom:1px solid var(--border-col)" id="taylor-steps">
+      <button class="t-step-btn t-active" onclick="taylorStep(0)">Inicio</button>
+      <button class="t-step-btn" onclick="taylorStep(1)">Mitosis 1</button>
+      <button class="t-step-btn" onclick="taylorStep(2)">Mitosis 2 ★</button>
+      <button class="t-step-btn" onclick="taylorStep(3)">Mitosis 3+</button>
+    </div>
+    <style>
+      .t-step-btn{flex:1;padding:.6rem .25rem;border:none;background:none;font-size:13px;font-weight:500;cursor:pointer;color:var(--text2);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;font-family:var(--font-body)}
+      .t-step-btn:hover{color:var(--text)}
+      .t-step-btn.t-active{color:#1d4ed8;border-bottom-color:#1d4ed8}
+    </style>
+    <!-- Canvas area -->
+    <div style="padding:1.25rem 1.5rem">
+      <canvas id="taylorCanvas" width="680" height="220" style="width:100%;height:auto;display:block"></canvas>
+      <div id="taylor-caption" style="margin-top:1rem;font-size:13px;color:var(--text2);line-height:1.6;min-height:40px;padding:.6rem .75rem;background:var(--bg);border-radius:8px"></div>
+    </div>
+  </div>
+
+  <!-- MODELO COMPARISON VISUAL -->
+  <div style="margin-bottom:1rem">
+    <div style="font-size:12px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem">¿Qué predice cada modelo en Metafase 2?</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem">
+
+      <!-- Semiconservativo -->
+      <div style="border:2px solid #16a34a;border-radius:12px;padding:1rem;background:#f0fdf4">
+        <div style="font-size:12px;font-weight:700;color:#15803d;margin-bottom:.75rem;text-align:center">SEMICONSERVATIVO ✓</div>
+        <svg width="100%" viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="15" width="18" height="60" rx="9" fill="#f59e0b"/>
+          <rect x="44" y="15" width="18" height="60" rx="9" fill="#d1d5db"/>
+          <text x="31" y="88" text-anchor="middle" font-size="8" fill="#374151">marcada</text>
+          <text x="53" y="88" text-anchor="middle" font-size="8" fill="#374151">limpia</text>
+          <circle cx="25" cy="25" r="2.5" fill="#f59e0b" opacity=".9"/>
+          <circle cx="32" cy="35" r="2.5" fill="#f59e0b" opacity=".9"/>
+          <circle cx="27" cy="48" r="2.5" fill="#f59e0b" opacity=".9"/>
+          <circle cx="34" cy="60" r="2.5" fill="#f59e0b" opacity=".9"/>
+          <rect x="75" y="15" width="18" height="60" rx="9" fill="#f59e0b"/>
+          <rect x="99" y="15" width="18" height="60" rx="9" fill="#d1d5db"/>
+          <circle cx="80" cy="28" r="2.5" fill="#f59e0b" opacity=".9"/>
+          <circle cx="87" cy="42" r="2.5" fill="#f59e0b" opacity=".9"/>
+          <circle cx="82" cy="55" r="2.5" fill="#f59e0b" opacity=".9"/>
+          <text x="97" y="8" text-anchor="middle" font-size="7" fill="#15803d" font-weight="bold">= Observado</text>
+        </svg>
+        <div style="font-size:11px;color:#166534;text-align:center;margin-top:.25rem">1 cromátida marcada por cromosoma</div>
+      </div>
+
+      <!-- Conservativo -->
+      <div style="border:1.5px solid #e5e7eb;border-radius:12px;padding:1rem;background:#fafafa;opacity:.75">
+        <div style="font-size:12px;font-weight:700;color:#dc2626;margin-bottom:.75rem;text-align:center">CONSERVATIVO ✗</div>
+        <svg width="100%" viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="15" width="18" height="60" rx="9" fill="#f59e0b"/>
+          <rect x="44" y="15" width="18" height="60" rx="9" fill="#f59e0b"/>
+          <circle cx="25" cy="25" r="2.5" fill="#f59e0b" opacity=".9"/>
+          <circle cx="32" cy="38" r="2.5" fill="#f59e0b" opacity=".9"/>
+          <circle cx="27" cy="52" r="2.5" fill="#f59e0b" opacity=".9"/>
+          <circle cx="49" cy="30" r="2.5" fill="#f59e0b" opacity=".9"/>
+          <circle cx="54" cy="46" r="2.5" fill="#f59e0b" opacity=".9"/>
+          <text x="31" y="88" text-anchor="middle" font-size="8" fill="#374151">ambas</text>
+          <text x="31" y="97" text-anchor="middle" font-size="8" fill="#374151">marcadas</text>
+          <rect x="75" y="15" width="18" height="60" rx="9" fill="#d1d5db"/>
+          <rect x="99" y="15" width="18" height="60" rx="9" fill="#d1d5db"/>
+          <text x="97" y="88" text-anchor="middle" font-size="8" fill="#374151">ambas</text>
+          <text x="97" y="97" text-anchor="middle" font-size="8" fill="#374151">limpias</text>
+          <text x="60" y="8" text-anchor="middle" font-size="7" fill="#dc2626" font-weight="bold">No observado</text>
+        </svg>
+        <div style="font-size:11px;color:#dc2626;text-align:center;margin-top:.25rem">Un cromosoma todo marcado, otro nada</div>
+      </div>
+
+      <!-- Dispersivo -->
+      <div style="border:1.5px solid #e5e7eb;border-radius:12px;padding:1rem;background:#fafafa;opacity:.75">
+        <div style="font-size:12px;font-weight:700;color:#dc2626;margin-bottom:.75rem;text-align:center">DISPERSIVO ✗</div>
+        <svg width="100%" viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="15" width="18" height="60" rx="9" fill="url(#disp1)"/>
+          <rect x="44" y="15" width="18" height="60" rx="9" fill="url(#disp1)"/>
+          <rect x="75" y="15" width="18" height="60" rx="9" fill="url(#disp1)"/>
+          <rect x="99" y="15" width="18" height="60" rx="9" fill="url(#disp1)"/>
+          <defs>
+            <linearGradient id="disp1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f59e0b" stop-opacity=".5"/>
+              <stop offset="50%" stop-color="#d1d5db"/>
+              <stop offset="100%" stop-color="#f59e0b" stop-opacity=".5"/>
+            </linearGradient>
+          </defs>
+          <circle cx="25" cy="30" r="2" fill="#f59e0b" opacity=".6"/>
+          <circle cx="49" cy="45" r="2" fill="#f59e0b" opacity=".6"/>
+          <circle cx="80" cy="28" r="2" fill="#f59e0b" opacity=".6"/>
+          <circle cx="104" cy="55" r="2" fill="#f59e0b" opacity=".6"/>
+          <text x="60" y="8" text-anchor="middle" font-size="7" fill="#dc2626" font-weight="bold">No observado</text>
+          <text x="60" y="97" text-anchor="middle" font-size="8" fill="#374151">ambas cromátidas parcialmente marcadas</text>
+        </svg>
+        <div style="font-size:11px;color:#dc2626;text-align:center;margin-top:.25rem">Marca repartida uniformemente en ambas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VS MESELSON CARD -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1rem">
+    <div style="background:var(--surface);border:1px solid var(--border-col);border-radius:10px;padding:.9rem 1rem">
+      <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem">Meselson &amp; Stahl</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.7"><strong>Org:</strong> <em>E. coli</em> (procariota)<br><strong>Técnica:</strong> ¹⁵N/¹⁴N + CsCl<br><strong>Ve:</strong> Bandas de densidad</div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border-col);border-radius:10px;padding:.9rem 1rem">
+      <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem">Taylor</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.7"><strong>Org:</strong> <em>Vicia faba</em> (eucariota)<br><strong>Técnica:</strong> ³H-timidina + autorradiografía<br><strong>Ve:</strong> Cromátidas marcadas</div>
+    </div>
+  </div>
+  <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:.75rem 1rem;margin-top:.75rem;font-size:13px;color:#166534;font-weight:500;text-align:center">
+    Organismos distintos · Técnicas distintas · Misma conclusión → Replicación semiconservativa es universal
+  </div>
+
+  <script>
+  const taylorData=[
+    {
+      title:'Inicio — Medio con ³H-timidina',
+      caption:'Las células crecen en medio radiactivo. Ambas hebras de cada cromosoma se marcan (amarillo). Al terminar la fase S: 2 cromátidas, ambas marcadas.',
+      chromosomes:[
+        {x:80, arms:[{c1:'#f59e0b',c2:'#f59e0b',dots:true},{c1:'#f59e0b',c2:'#f59e0b',dots:true}]},
+        {x:220, arms:[{c1:'#f59e0b',c2:'#f59e0b',dots:true},{c1:'#f59e0b',c2:'#f59e0b',dots:true}]},
+        {x:370, arms:[{c1:'#f59e0b',c2:'#f59e0b',dots:true},{c1:'#f59e0b',c2:'#f59e0b',dots:true}]},
+        {x:510, arms:[{c1:'#f59e0b',c2:'#f59e0b',dots:true},{c1:'#f59e0b',c2:'#f59e0b',dots:true}]},
+      ],
+      label:'Fase S en ³H-timidina'
+    },
+    {
+      title:'Metafase 1 — Ambas cromátidas radiactivas',
+      caption:'Autorradiografía: granos plateados (puntos dorados) aparecen en AMBAS cromátidas. El ADN marcado se distribuyó equitativamente en las dos cromátidas hermanas.',
+      chromosomes:[
+        {x:80, arms:[{c1:'#f59e0b',c2:'#f59e0b',dots:true},{c1:'#f59e0b',c2:'#f59e0b',dots:true}]},
+        {x:240, arms:[{c1:'#f59e0b',c2:'#f59e0b',dots:true},{c1:'#f59e0b',c2:'#f59e0b',dots:true}]},
+        {x:400, arms:[{c1:'#f59e0b',c2:'#f59e0b',dots:true},{c1:'#f59e0b',c2:'#f59e0b',dots:true}]},
+        {x:540, arms:[{c1:'#f59e0b',c2:'#f59e0b',dots:true},{c1:'#f59e0b',c2:'#f59e0b',dots:true}]},
+      ],
+      label:'Metafase 1 — ³H en ambas cromátidas'
+    },
+    {
+      title:'Metafase 2 ★ — Solo UNA cromátida marcada',
+      caption:'★ Resultado clave: cada cromosoma tiene UNA cromátida marcada (hebra parental ³H + nueva sin marca) y UNA sin marca (dos hebras nuevas). Prueba el modelo semiconservativo.',
+      chromosomes:[
+        {x:80, arms:[{c1:'#f59e0b',c2:'#d1d5db',dots:true},{c1:'#f59e0b',c2:'#d1d5db',dots:true}]},
+        {x:240, arms:[{c1:'#d1d5db',c2:'#d1d5db',dots:false},{c1:'#d1d5db',c2:'#d1d5db',dots:false}]},
+        {x:400, arms:[{c1:'#f59e0b',c2:'#d1d5db',dots:true},{c1:'#f59e0b',c2:'#d1d5db',dots:true}]},
+        {x:540, arms:[{c1:'#d1d5db',c2:'#d1d5db',dots:false},{c1:'#d1d5db',c2:'#d1d5db',dots:false}]},
+      ],
+      label:'Metafase 2 — ★ Solo 1 cromátida marcada'
+    },
+    {
+      title:'Metafase 3+ — Señal se diluye',
+      caption:'Con cada división, menos cromosomas tienen marca. La hebra parental ³H se diluye progresivamente entre la población celular, exactamente como predice el modelo semiconservativo.',
+      chromosomes:[
+        {x:80, arms:[{c1:'#f59e0b',c2:'#d1d5db',dots:true},{c1:'#f59e0b',c2:'#d1d5db',dots:true}]},
+        {x:240, arms:[{c1:'#d1d5db',c2:'#d1d5db',dots:false},{c1:'#d1d5db',c2:'#d1d5db',dots:false}]},
+        {x:400, arms:[{c1:'#d1d5db',c2:'#d1d5db',dots:false},{c1:'#d1d5db',c2:'#d1d5db',dots:false}]},
+        {x:540, arms:[{c1:'#d1d5db',c2:'#d1d5db',dots:false},{c1:'#d1d5db',c2:'#d1d5db',dots:false}]},
+      ],
+      label:'Metafase 3+ — Señal diluida'
+    }
+  ];
+
+  let taylorCurrent=0;
+
+  function drawChromosome(ctx,x,y,arm,highlight){
+    const w=13,h=55,gap=5,r=6;
+    [arm.c1,arm.c2].forEach((col,i)=>{
+      const cx=x+(i===0?-gap-w:gap);
+      ctx.beginPath();
+      ctx.roundRect(cx,y,w,h,r);
+      ctx.fillStyle=col;
+      ctx.fill();
+      if(col==='#f59e0b'){
+        ctx.strokeStyle='#d97706';ctx.lineWidth=1;ctx.stroke();
+      } else {
+        ctx.strokeStyle='#9ca3af';ctx.lineWidth=0.5;ctx.stroke();
+      }
+      if(arm.dots&&col==='#f59e0b'){
+        ctx.fillStyle='#fbbf24';
+        [[cx+4,y+12],[cx+9,y+25],[cx+5,y+40]].forEach(([dx,dy])=>{
+          ctx.beginPath();ctx.arc(dx,dy,2.5,0,Math.PI*2);ctx.fill();
+        });
+      }
+    });
+    ctx.beginPath();
+    ctx.roundRect(x-3,y+h/2-4,6,8,3);
+    ctx.fillStyle='#6b7280';ctx.fill();
+  }
+
+  function drawTaylor(idx){
+    const canvas=document.getElementById('taylorCanvas');
+    const ctx=canvas.getContext('2d');
+    const d=taylorData[idx];
+    ctx.clearRect(0,0,680,220);
+
+    ctx.font='11px system-ui';
+    ctx.fillStyle='#6b7280';
+    ctx.textAlign='center';
+    ctx.fillText(d.label,340,18);
+
+    d.chromosomes.forEach((ch,i)=>{
+      drawChromosome(ctx,ch.x,40,ch.arms[0]);
+      drawChromosome(ctx,ch.x,130,ch.arms[1]);
+      ctx.strokeStyle='#e5e7eb';
+      ctx.lineWidth=1;
+      ctx.setLineDash([3,3]);
+      ctx.beginPath();
+      ctx.moveTo(ch.x,100);ctx.lineTo(ch.x,130);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.font='bold 10px system-ui';
+      ctx.fillStyle='#374151';
+      ctx.textAlign='center';
+      ctx.fillText('Crom '+(i+1),ch.x,210);
+    });
+
+    document.getElementById('taylor-caption').innerHTML='<strong>'+d.title+':</strong> '+d.caption;
+    document.querySelectorAll('.t-step-btn').forEach((b,i)=>b.classList.toggle('t-active',i===idx));
+    taylorCurrent=idx;
+  }
+
+  function taylorStep(idx){taylorCurrent=idx;drawTaylor(idx);}
+
+  window.addEventListener('load',function(){
+    if(typeof CanvasRenderingContext2D.prototype.roundRect==='undefined'){
+      CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){
+        this.beginPath();this.moveTo(x+r,y);this.lineTo(x+w-r,y);
+        this.arcTo(x+w,y,x+w,y+r,r);this.lineTo(x+w,y+h-r);
+        this.arcTo(x+w,y+h,x+w-r,y+h,r);this.lineTo(x+r,y+h);
+        this.arcTo(x,y+h,x,y+h-r,r);this.lineTo(x,y+r);
+        this.arcTo(x,y,x+r,y,r);this.closePath();return this;
+      };
+    }
+    drawTaylor(0);
+  });
+  </script>
+</section>
+
+<!-- ETAPAS -->
+<section id="etapas">
+  <div class="section-label">Sección 5</div>
+  <h1>Las 3 etapas de la replicación</h1>
+  <div class="btn-group">
+    <button class="btn active-btn" onclick="showTab('etapa','ini',this)">1. Iniciación</button>
+    <button class="btn" onclick="showTab('etapa','elo',this)">2. Elongación</button>
+    <button class="btn" onclick="showTab('etapa','ter',this)">3. Terminación</button>
+  </div>
+
+  <div class="tab-content active" id="etapa-ini">
+    <div class="step-flow">
+      <div class="step-item">
+        <div class="step-line"><div class="step-dot" style="background:var(--accent);color:#000">1</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-name">Reconocimiento del origen (oriC)</div>
+          <div class="step-desc">Proteínas iniciadoras reconocen la secuencia origen, rica en A-T (solo 2 puentes de H, más fáciles de romper). Procariotas: 1 oriC. Eucariotas: miles.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-line"><div class="step-dot" style="background:var(--accent3);color:#000">2</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-name">Alivio de tensión — Topoisomerasa</div>
+          <div class="step-desc">Corta y reúne las cadenas para eliminar los superenrollamientos que se generarían al abrir la hélice. En eucariotas el nivel de enrollamiento es mucho mayor que en procariotas.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-line"><div class="step-dot" style="background:var(--accent4);color:#fff">3</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-name">Apertura de la hélice — Helicasa</div>
+          <div class="step-desc">Rompe los puentes de hidrógeno entre bases nitrogenadas y separa las dos cadenas. <strong>Usa ATP</strong> para funcionar. Las bases nitrogenadas NO usan ATP para formar puentes de H — es su tendencia natural.</div>
+          <div class="alert alert-amber" style="margin-top:8px"><span class="alert-icon">⚡</span><div style="font-size:12px">Helicasa usa ATP para abrir. Las bases se pegan solas cuando se acercan. No confundir.</div></div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-line"><div class="step-dot" style="background:var(--accent2);color:#000">4</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-name">Estabilización — Proteínas SSB</div>
+          <div class="step-desc">Se unen a cada cadena separada para evitar que vuelvan a unirse antes de que la polimerasa actúe. Forman las horquillas de replicación (forma de Y).</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-line"><div class="step-dot" style="background:var(--accent5);color:#fff">5</div></div>
+        <div class="step-body">
+          <div class="step-name">Formación de burbujas de replicación</div>
+          <div class="step-desc">Se abren dos horquillas que avanzan en ambas direcciones (bidireccional). En eucariotas, múltiples burbujas crecen simultáneamente y se fusionan hasta completar la replicación.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="etapa-elo">
+    <div class="alert alert-green">
+      <span class="alert-icon">★</span>
+      <div><strong>Regla absoluta:</strong> La ADN polimerasa solo sintetiza en dirección <strong>5'→ 3'</strong>. Nunca al revés. Esto crea el problema de la hebra rezagada.</div>
+    </div>
+    <h3>Paso 0: el cebador (primer)</h3>
+    <div class="card card-purple">
+      <p style="color:#c4b5fd;font-size:13px"><strong>¿Qué es?</strong> Fragmento corto de ARN (~10 nt) sintetizado por la <strong>ARN primasa</strong>. La ADN polimerasa no puede crear una cadena desde cero — necesita un <strong>extremo 3' libre</strong> al cual añadir nucleótidos. El cebador provee ese extremo.</p>
+      <div class="analogy" style="margin-top:8px">Como cuando alguien te empieza la cadena de abalorios para que tú solo sigas añadiendo.</div>
+    </div>
+    <h3>Hebra conductora (líder)</h3>
+    <div class="card card-green">
+      <p style="font-size:13px;color:#a7f3c0">Molde en dirección <strong>3'→ 5'</strong> → nueva hebra crece en <strong>5'→ 3'</strong>, en el mismo sentido que avanza la horquilla.</p>
+      <ul style="font-size:12px;color:#c8cad4;list-style:none;margin-top:6px">
+        <li>✦ Síntesis <strong>continua</strong> — un solo cebador</li>
+        <li>✦ Más rápida y simple</li>
+        <li>✦ La ADN Pol III añade nucleótidos sin interrupciones</li>
+      </ul>
+    </div>
+    <h3>Hebra rezagada (retrasada)</h3>
+    <div class="card card-amber">
+      <p style="font-size:13px;color:#fcd68a">Molde en dirección <strong>5'→ 3'</strong> → la polimerasa no puede ir en esa dirección. Solución: <strong>fragmentos de Okazaki</strong> — múltiples tramos cortos, cada uno con su cebador, sintetizados alejándose de la horquilla.</p>
+      <ul style="font-size:12px;color:#c8cad4;list-style:none;margin-top:6px">
+        <li>✦ Síntesis <strong>discontinua</strong> — múltiples cebadores</li>
+        <li>✦ Fragmentos: ~1500 nt (procariotas) · ~150 nt (eucariotas)</li>
+        <li>✦ Más lenta — de ahí "rezagada"</li>
+      </ul>
+    </div>
+    <div class="mnemo"><strong>Mnemotécnico:</strong> La conductora va CON la horquilla (continua). La rezagada va CONTRA la horquilla (discontinua).</div>
+    <h3>Las 3 ADN polimerasas</h3>
+    <table>
+      <tr><th>Enzima</th><th>Función</th><th>Cuándo actúa</th></tr>
+      <tr><td><strong>ADN Pol I</strong></td><td>Elimina cebadores de ARN y rellena los huecos con ADN</td><td>Después de Pol III</td></tr>
+      <tr><td><strong>ADN Pol II</strong></td><td>Reparación del ADN dañado</td><td>Cuando hay daño</td></tr>
+      <tr><td><strong>ADN Pol III</strong></td><td>Síntesis principal — la más importante y activa</td><td>Toda la elongación</td></tr>
+    </table>
+    <div class="alert alert-purple"><span class="alert-icon">💡</span><div style="font-size:12px">Se llaman I, II y III por <strong>orden de descubrimiento</strong>, no por orden de acción. La Pol III es la más importante aunque fue descubierta de tercera.</div></div>
+  </div>
+
+  <div class="tab-content" id="etapa-ter">
+    <div class="step-flow">
+      <div class="step-item">
+        <div class="step-line"><div class="step-dot" style="background:var(--accent);color:#000">1</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-name">Eliminación de cebadores — ADN Pol I</div>
+          <div class="step-desc">La ADN Polimerasa I elimina todos los cebadores de ARN y rellena los huecos con ADN correcto usando la cadena adyacente como molde.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-line"><div class="step-dot" style="background:var(--accent3);color:#000">2</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-name">Sellado — ADN Ligasa</div>
+          <div class="step-desc">Une los fragmentos de Okazaki formando una cadena continua sin interrupciones. Cataliza los enlaces fosfodiéster entre fragmentos.</div>
+          <div class="analogy">Como pegar con pegamento los trozos de papel para hacer una sola hoja continua.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-line"><div class="step-dot" style="background:var(--accent2);color:#000">3</div><div class="step-connector"></div></div>
+        <div class="step-body">
+          <div class="step-name">Fusión de burbujas</div>
+          <div class="step-desc">Las burbujas que crecían en ambas direcciones se encuentran y fusionan hasta que todo el ADN queda replicado.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-line"><div class="step-dot" style="background:var(--accent5);color:#fff">4</div></div>
+        <div class="step-body">
+          <div class="step-name">Resultado</div>
+          <div class="step-desc">Dos moléculas idénticas a la original. Cada una con 1 cadena parental + 1 nueva → modelo semiconservativo.</div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <h2>Procariota vs Eucariota</h2>
+    <table>
+      <tr><th>Característica</th><th>Procariota (plesiomórfico)</th><th>Eucariota (apomórfico)</th></tr>
+      <tr><td>Orígenes</td><td>1 solo (oriC)</td><td>Miles simultáneos</td></tr>
+      <tr><td>Enrollamiento</td><td>Menor</td><td>Mucho mayor</td></tr>
+      <tr><td>Cromosoma</td><td>Circular</td><td>Lineal</td></tr>
+      <tr><td>Fragmentos Okazaki</td><td>~1500 nt</td><td>~150 nt</td></tr>
+      <tr><td>Histonas</td><td>No</td><td>Sí — deben replicarse también</td></tr>
+    </table>
+    <div class="alert alert-cyan"><span class="alert-icon">📌</span><div style="font-size:12px"><strong>Plesiomórfico</strong> = poco evolucionado (procariota) · <strong>Apomórfico</strong> = muy evolucionado (eucariota)</div></div>
+  </div>
+</section>
+
+<!-- ENZIMAS -->
+<section id="enzimas">
+  <div class="section-label">Sección 6 — Prioritario en examen</div>
+  <h1>Enzimas de la replicación</h1>
+  <p>Haz clic en cada enzima para ver función, etapa y truco mnemotécnico.</p>
+  <div class="enzyme-grid">
+    <div class="enzyme-card" onclick="toggleEnzyme(this)">
+      <div class="enzyme-name" style="color:var(--accent5)">Topoisomerasa</div>
+      <div class="enzyme-short">Alivia tensión · Antes de la helicasa</div>
+      <div class="enzyme-detail"><p><strong>Función:</strong> Corta y vuelve a unir cadenas para aliviar superenrollamientos causados al abrir la hélice. Sin ella el ADN se torce hasta bloquearse.</p><div class="mnemo"><strong>Truco:</strong> "TOPO = relieve → relaja la tensión"</div></div>
+    </div>
+    <div class="enzyme-card" onclick="toggleEnzyme(this)">
+      <div class="enzyme-name" style="color:var(--accent3)">Helicasa</div>
+      <div class="enzyme-short">Abre la hélice · Usa ATP</div>
+      <div class="enzyme-detail"><p><strong>Función:</strong> Rompe los puentes de hidrógeno y separa las cadenas. Requiere <strong>ATP</strong>. Actúa en el origen de replicación.</p><div class="mnemo"><strong>Truco:</strong> "HELIcasa = desenrolla la HÉLIce — como un sacacorchos"</div></div>
+    </div>
+    <div class="enzyme-card" onclick="toggleEnzyme(this)">
+      <div class="enzyme-name" style="color:var(--accent2)">Proteínas SSB</div>
+      <div class="enzyme-short">Estabiliza cadenas separadas</div>
+      <div class="enzyme-detail"><p><strong>Función:</strong> Se unen a las cadenas simples separadas por la helicasa e impiden que se vuelvan a unir. Permiten el paso de la polimerasa.</p><div class="mnemo"><strong>Truco:</strong> "SSB = Sostiene las cadenas Separadas"</div></div>
+    </div>
+    <div class="enzyme-card" onclick="toggleEnzyme(this)">
+      <div class="enzyme-name" style="color:var(--accent)">ARN Primasa</div>
+      <div class="enzyme-short">Crea el cebador · Inicio elongación</div>
+      <div class="enzyme-detail"><p><strong>Función:</strong> Sintetiza el cebador de ARN (~10 nt) que proporciona el extremo 3' libre. La <strong>única que puede iniciar una cadena sin molde previo</strong>.</p><div class="mnemo"><strong>Truco:</strong> "Prima = primera en llegar a la elongación"</div></div>
+    </div>
+    <div class="enzyme-card" onclick="toggleEnzyme(this)">
+      <div class="enzyme-name" style="color:var(--accent4)">ADN Polimerasa III</div>
+      <div class="enzyme-short">Síntesis principal · La más importante</div>
+      <div class="enzyme-detail"><p><strong>Función:</strong> Sintetiza la nueva cadena en dirección <strong>5'→ 3'</strong>. La más potente y activa. También tiene actividad correctora.</p><div class="mnemo"><strong>Truco:</strong> "Pol III = tercera descubierta, pero PRIMERA en importancia"</div></div>
+    </div>
+    <div class="enzyme-card" onclick="toggleEnzyme(this)">
+      <div class="enzyme-name" style="color:var(--accent2)">ADN Polimerasa I</div>
+      <div class="enzyme-short">Elimina cebadores · Post-elongación</div>
+      <div class="enzyme-detail"><p><strong>Función:</strong> Elimina cebadores de ARN (actividad exonucleasa 5'→3') y reemplaza el espacio con ADN correcto. Única con actividad exonucleasa en ambas direcciones.</p><div class="mnemo"><strong>Truco:</strong> "Pol I = el LIMPIADOR — borra cebadores y pone ADN"</div></div>
+    </div>
+    <div class="enzyme-card" onclick="toggleEnzyme(this)">
+      <div class="enzyme-name" style="color:var(--accent3)">ADN Polimerasa II</div>
+      <div class="enzyme-short">Reparación · Solo cuando hay daño</div>
+      <div class="enzyme-detail"><p><strong>Función:</strong> Reparación del ADN dañado. No participa en la replicación normal.</p><div class="mnemo"><strong>Truco:</strong> "Pol II = el médico de guardia — solo cuando hay daño"</div></div>
+    </div>
+    <div class="enzyme-card" onclick="toggleEnzyme(this)">
+      <div class="enzyme-name" style="color:var(--accent5)">ADN Ligasa</div>
+      <div class="enzyme-short">Une fragmentos Okazaki · Terminación</div>
+      <div class="enzyme-detail"><p><strong>Función:</strong> Sella los fragmentos de Okazaki formando una cadena continua con enlaces fosfodiéster. Actúa al final de la replicación.</p><div class="mnemo"><strong>Truco:</strong> "LIGASA = LIGA y PEGA — une los fragmentos"</div></div>
+    </div>
+  </div>
+  <hr>
+  <h2>Orden de acción</h2>
+  <div class="alert alert-green"><span class="alert-icon">→</span><div style="font-size:13px"><strong>Topoisomerasa → Helicasa → SSB → ARN Primasa → ADN Pol III → ADN Pol I → ADN Ligasa</strong></div></div>
+  <div class="mnemo"><strong>Mnemotécnico:</strong> "<strong>T</strong>odos <strong>H</strong>acen <strong>S</strong>u <strong>P</strong>arte · <strong>III, I, L</strong>igan" → Topo, Helicasa, SSB, Primasa, Pol III, Pol I, Ligasa</div>
+</section>
+
+<!-- TELOMEROS -->
+<section id="telomeros">
+  <div class="section-label">Sección 7 — Contenido nuevo (videos)</div>
+  <h1>Telómeros y Envejecimiento</h1>
+  <p>Conexión entre replicación del ADN, envejecimiento celular y cáncer.</p>
+  <div class="alert alert-amber"><span class="alert-icon">★</span><div>Contenido avanzado — muy frecuente en preguntas de desarrollo y casos clínicos.</div></div>
+
+  <h2>El problema de la replicación terminal</h2>
+  <div class="card card-red">
+    <h3 style="color:var(--accent4)">¿Por qué se pierde ADN en cada división?</h3>
+    <p style="font-size:13px;color:#fca5a5">Al eliminar el último cebador de ARN en el extremo del cromosoma, queda un <strong>hueco sin rellenar</strong>. La ADN polimerasa no puede completarlo porque no tiene extremo 3' del cual extenderse hacia allí.</p>
+    <div class="analogy">Como pintar el suelo de una habitación: te quedas atrapado en el rincón y ese pedacito nunca se puede pintar.</div>
+  </div>
+
+  <h2>¿Qué son los telómeros?</h2>
+  <div class="card card-cyan">
+    <p style="font-size:13px;color:#a5f3fc">Secuencias repetitivas de ADN <strong>no codificante</strong> en los extremos de los cromosomas. En humanos: repetición de <strong>TTAGGG</strong> miles de veces. Son el ADN "que se puede perder" sin comprometer genes vitales.</p>
+  </div>
+
+  <h2>Telómeros como reloj biológico</h2>
+  <div class="telo-display">
+    <p style="font-size:12px;color:var(--muted);text-align:center;margin-bottom:6px">Simulación — divisiones celulares y acortamiento de telómeros</p>
+    <div style="display:flex;align-items:center;gap:8px">
+      <label style="font-size:12px;color:var(--muted);white-space:nowrap">Divisiones: <span id="teloCount">0</span></label>
+      <input type="range" min="0" max="50" value="0" oninput="updateTelo(this.value)">
+    </div>
+    <div class="chromosome-viz">
+      <div class="telo-cap" id="teloLeft" style="width:70px"></div>
+      <div class="chrom-body" style="width:260px"></div>
+      <div class="telo-cap" id="teloRight" style="width:70px"></div>
+    </div>
+    <div id="teloInfo" style="text-align:center;font-size:13px;font-weight:600;color:var(--accent)">Telómeros normales — célula joven y sana</div>
+  </div>
+
+  <h2>Consecuencias del acortamiento extremo</h2>
+  <div class="grid-2">
+    <div class="card card-red"><h3 style="color:var(--accent4)">Apoptosis</h3><p style="font-size:13px;color:#fca5a5">La célula activa su muerte programada al detectar daño en el ADN. El tejido pierde células sin reponerlas.</p></div>
+    <div class="card card-amber"><h3 style="color:var(--accent3)">Senescencia celular</h3><p style="font-size:13px;color:#fcd68a">La célula deja de dividirse pero no muere. El tejido envejece porque no puede regenerarse.</p></div>
+  </div>
+
+  <h2>La telomerasa</h2>
+  <div class="card card-green">
+    <h3 style="color:var(--accent)">¿Qué es y qué hace?</h3>
+    <p style="font-size:13px;color:#a7f3c0">Enzima que <strong>alarga los telómeros</strong> añadiendo repeticiones TTAGGG a los extremos. Tiene un componente de ARN propio que sirve de molde.</p>
+  </div>
+  <table>
+    <tr><th>¿Dónde está activa?</th><th>¿Por qué?</th></tr>
+    <tr><td>Células embrionarias</td><td>El embrión se divide millones de veces</td></tr>
+    <tr><td>Células madre</td><td>Necesitan dividirse muchas veces para regenerar</td></tr>
+    <tr><td>Células reproductoras</td><td>La siguiente generación necesita telómeros completos</td></tr>
+    <tr><td style="color:var(--accent4)">90% células cancerosas ⚠</td><td style="color:var(--accent4)">Reactivan la telomerasa para volverse "inmortales"</td></tr>
+    <tr><td style="color:var(--muted)">Células adultas somáticas</td><td style="color:var(--muted)">NO tienen telomerasa → envejecen con cada división</td></tr>
+  </table>
+  <div class="alert alert-red">
+    <span class="alert-icon">⚠</span>
+    <div><strong>El dilema:</strong> Si activáramos la telomerasa en todas las células adultas para frenar el envejecimiento, podríamos potenciar la inmortalidad de células cancerosas. El 90% de tumores ya la usan para dividirse sin límite.</div>
+  </div>
+
+  <h2>Investigación — María Blasco, CNIO (2018)</h2>
+  <div class="card card-purple">
+    <p style="font-size:13px;color:#c4b5fd">Terapia génica con telomerasa en ratones que regeneró tejidos (incluyendo cardíaco tras infarto) causados por acortamiento excesivo de telómeros, <strong>sin provocar cáncer</strong>. La clave: reactivar el gen de la telomerasa solo durante algunas divisiones controladas, no de forma permanente. Aún quedan años para el salto a humanos.</p>
+  </div>
+</section>
+
+<!-- ERRORES -->
+<section id="errores">
+  <div class="section-label">Sección 8</div>
+  <h1>Errores comunes en el examen</h1>
+  <p>Haz clic en cada error para ver la corrección exacta.</p>
+
+  <div class="error-item">
+    <div class="error-header" onclick="toggleError(this)"><span class="error-icon">❌</span><span class="error-text">Confundir hebra conductora con hebra rezagada</span><span class="error-expand">Ver ↓</span></div>
+    <div class="error-body">✅ Conductora: molde 3'→5', síntesis continua, 1 cebador, hacia la horquilla. Rezagada: molde 5'→3', síntesis discontinua, múltiples cebadores, fragmentos Okazaki. Ambas sintetizan en 5'→3' — la diferencia es continua vs discontinua.</div>
+  </div>
+  <div class="error-item">
+    <div class="error-header" onclick="toggleError(this)"><span class="error-icon">❌</span><span class="error-text">Creer que ADN Pol III actúa "de tercera" en orden</span><span class="error-expand">Ver ↓</span></div>
+    <div class="error-body">✅ Los números I, II, III indican el orden en que fueron descubiertas, no el orden de acción. Pol III es la PRIMERA y MÁS IMPORTANTE en la elongación. Pol I actúa después para eliminar cebadores. Pol II es reparadora.</div>
+  </div>
+  <div class="error-item">
+    <div class="error-header" onclick="toggleError(this)"><span class="error-icon">❌</span><span class="error-text">Pensar que la ADN polimerasa puede iniciar sola</span><span class="error-expand">Ver ↓</span></div>
+    <div class="error-body">✅ La ADN polimerasa necesita obligatoriamente un extremo 3'-OH libre. Por eso la ARN primasa crea el cebador primero. Sin cebador = sin replicación.</div>
+  </div>
+  <div class="error-item">
+    <div class="error-header" onclick="toggleError(this)"><span class="error-icon">❌</span><span class="error-text">Las bases nitrogenadas usan ATP para formar puentes de hidrógeno</span><span class="error-expand">Ver ↓</span></div>
+    <div class="error-body">✅ Los puentes de H se forman espontáneamente — es la tendencia natural de las bases complementarias. Quien usa ATP es la HELICASA para ROMPER esos puentes. Nunca confundas: abrir hélice (ATP) vs unir bases (espontáneo).</div>
+  </div>
+  <div class="error-item">
+    <div class="error-header" onclick="toggleError(this)"><span class="error-icon">❌</span><span class="error-text">Confundir predicciones de los 3 modelos en Gen 2 (Meselson-Stahl)</span><span class="error-expand">Ver ↓</span></div>
+    <div class="error-body">✅ Gen 2: Conservativo → pesada + 2 ligeras. Dispersivo → solo híbrida. Semiconservativo → híbrida + ligera. Lo observado fue híbrida + ligera → confirma semiconservativo y descarta ambos otros modelos a la vez.</div>
+  </div>
+  <div class="error-item">
+    <div class="error-header" onclick="toggleError(this)"><span class="error-icon">❌</span><span class="error-text">La telomerasa previene completamente el envejecimiento</span><span class="error-expand">Ver ↓</span></div>
+    <div class="error-body">✅ Los telómeros son uno de múltiples factores del envejecimiento. El envejecimiento tiene 9 causas identificadas (Hallmarks of Aging). Además, activar la telomerasa sin control promueve el cáncer — el 90% de células cancerosas la usan para volverse inmortales.</div>
+  </div>
+</section>
+
+<!-- PRACTICA -->
+<section id="practica">
+  <div class="section-label">Sección 9</div>
+  <h1>Preguntas de práctica</h1>
+  <p id="scoreText">Responde las 5 preguntas para ver tu resultado.</p>
+  <div class="score-bar"><div class="score-fill" id="scoreFill" style="width:0%"></div></div>
+
+  <div class="quiz-question">
+    <div class="quiz-q">1. En Meselson &amp; Stahl, ¿qué observación de Gen 1 descarta el modelo conservativo?</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q1',false)"><div class="quiz-letter">A</div>Una banda pesada y una ligera separadas</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q1',true)"><div class="quiz-letter">B</div>Una única banda de densidad intermedia (híbrida)</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q1',false)"><div class="quiz-letter">C</div>Dos bandas ligeras</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q1',false)"><div class="quiz-letter">D</div>No se observa ninguna banda</div>
+    <div class="alert alert-green" id="q1-ok" style="display:none"><span class="alert-icon">✓</span><div>Correcto. El conservativo predecía 2 bandas separadas en Gen 1. Al observarse solo 1 banda híbrida, queda descartado inmediatamente.</div></div>
+    <div class="alert alert-red" id="q1-no" style="display:none"><span class="alert-icon">✗</span><div>Incorrecto. El conservativo predecía DOS bandas separadas (pesada + ligera). Como se observó UNA sola banda híbrida, ese modelo queda descartado.</div></div>
+  </div>
+
+  <div class="quiz-question">
+    <div class="quiz-q">2. ¿Por qué la ADN polimerasa necesita un cebador para actuar?</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q2',false)"><div class="quiz-letter">A</div>Porque no reconoce el origen de replicación</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q2',false)"><div class="quiz-letter">B</div>Porque solo trabaja con ATP presente</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q2',true)"><div class="quiz-letter">C</div>Porque necesita un extremo 3'-OH libre del cual extenderse</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q2',false)"><div class="quiz-letter">D</div>Porque la helicasa no le permite el acceso directo</div>
+    <div class="alert alert-green" id="q2-ok" style="display:none"><span class="alert-icon">✓</span><div>Correcto. La polimerasa solo puede añadir nucleótidos a un extremo 3'-OH preexistente. El cebador de ARN, fabricado por la ARN primasa, provee ese extremo.</div></div>
+    <div class="alert alert-red" id="q2-no" style="display:none"><span class="alert-icon">✗</span><div>Incorrecto. La razón es química: la polimerasa necesita un extremo 3'-OH libre al cual añadir nucleótidos. Sin cebador, no hay punto de inicio.</div></div>
+  </div>
+
+  <div class="quiz-question">
+    <div class="quiz-q">3. V/F: La hebra rezagada se sintetiza en dirección 3'→ 5' porque la polimerasa puede trabajar en ese sentido.</div>
+    <div class="vf-opt" onclick="checkVF(this,'q3',false)">✦ Verdadero — la polimerasa sí puede ir en 3'→ 5' en la hebra rezagada</div>
+    <div class="vf-opt" onclick="checkVF(this,'q3',true)">✦ Falso — la polimerasa SIEMPRE va 5'→ 3'; la hebra rezagada usa fragmentos de Okazaki</div>
+    <div class="alert alert-green" id="q3-ok" style="display:none"><span class="alert-icon">✓</span><div>Correcto. La dirección 5'→ 3' es una regla absoluta. La hebra rezagada sintetiza fragmentos de Okazaki en la dirección correcta pero alejándose de la horquilla.</div></div>
+    <div class="alert alert-red" id="q3-no" style="display:none"><span class="alert-icon">✗</span><div>Incorrecto. La ADN polimerasa NUNCA trabaja en 3'→ 5'. La solución son los fragmentos de Okazaki — no hay excepción a la regla de dirección.</div></div>
+  </div>
+
+  <div class="quiz-question">
+    <div class="quiz-q">4. Un médico detecta que el 90% de las células tumorales de un paciente reactivaron la telomerasa. ¿Qué ventaja les da esto?</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q4',false)"><div class="quiz-letter">A</div>Replican su ADN más rápido que células normales</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q4',false)"><div class="quiz-letter">B</div>Las protege de mutaciones</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q4',true)"><div class="quiz-letter">C</div>Pueden dividirse ilimitadamente sin perder ADN vital</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q4',false)"><div class="quiz-letter">D</div>Producen más energía mediante respiración celular</div>
+    <div class="alert alert-green" id="q4-ok" style="display:none"><span class="alert-icon">✓</span><div>Correcto. La telomerasa repone los telómeros en cada división, evitando la senescencia y la apoptosis. Las células cancerosas se vuelven efectivamente "inmortales".</div></div>
+    <div class="alert alert-red" id="q4-no" style="display:none"><span class="alert-icon">✗</span><div>Incorrecto. La ventaja clave es la inmortalidad replicativa: telómeros que no se acortan = divisiones ilimitadas sin comprometer genes vitales.</div></div>
+  </div>
+
+  <div class="quiz-question">
+    <div class="quiz-q">5. ¿Cuál es la función correcta de la ADN Ligasa?</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q5',false)"><div class="quiz-letter">A</div>Sintetizar el cebador de ARN</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q5',false)"><div class="quiz-letter">B</div>Separar las dos cadenas en el origen de replicación</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q5',true)"><div class="quiz-letter">C</div>Unir los fragmentos de Okazaki formando una cadena continua</div>
+    <div class="quiz-opt" onclick="checkQ(this,'q5',false)"><div class="quiz-letter">D</div>Eliminar los superenrollamientos del ADN</div>
+    <div class="alert alert-green" id="q5-ok" style="display:none"><span class="alert-icon">✓</span><div>Correcto. La ligasa sella los fragmentos de Okazaki con enlaces fosfodiéster, completando la cadena continua de la hebra rezagada.</div></div>
+    <div class="alert alert-red" id="q5-no" style="display:none"><span class="alert-icon">✗</span><div>Incorrecto. A es la ARN Primasa, B es la Helicasa, D es la Topoisomerasa. La Ligasa une fragmentos de Okazaki.</div></div>
+  </div>
+
+  <div id="finalScore" style="display:none" class="card card-green">
+    <h3 style="color:var(--accent)" id="scoreTitle">Resultado final</h3>
+    <p id="scoreMsg" style="font-size:13px;color:#a7f3c0"></p>
+  </div>
+</section>
+
+<!-- CHEATSHEET -->
+<section id="cheatsheet">
+  <div class="section-label">Sección 10 — Repaso final</div>
+  <h1>Cheatsheet — Todo en una página</h1>
+  <div class="cheat-grid">
+    <div class="cheat-box">
+      <div class="cheat-title">Reglas absolutas</div>
+      <div class="cheat-item"><span class="cheat-key">Dirección</span>Siempre 5'→ 3' (sin excepciones)</div>
+      <div class="cheat-item"><span class="cheat-key">Modelo</span>Semiconservativo (1 vieja + 1 nueva)</div>
+      <div class="cheat-item"><span class="cheat-key">Bidireccional</span>2 horquillas desde el origen</div>
+      <div class="cheat-item"><span class="cheat-key">Cebador</span>ARN · obligatorio para iniciar</div>
+    </div>
+    <div class="cheat-box">
+      <div class="cheat-title">Enzimas y funciones</div>
+      <div class="cheat-item"><span class="cheat-key">Topoisomerasa</span>Alivia superenrollamientos</div>
+      <div class="cheat-item"><span class="cheat-key">Helicasa (ATP)</span>Abre la hélice</div>
+      <div class="cheat-item"><span class="cheat-key">SSB</span>Mantiene cadenas separadas</div>
+      <div class="cheat-item"><span class="cheat-key">ARN Primasa</span>Crea el cebador</div>
+      <div class="cheat-item"><span class="cheat-key">Pol III ★</span>Sintetiza nueva cadena</div>
+      <div class="cheat-item"><span class="cheat-key">Pol I</span>Elimina cebadores</div>
+      <div class="cheat-item"><span class="cheat-key">Pol II</span>Repara ADN dañado</div>
+      <div class="cheat-item"><span class="cheat-key">Ligasa</span>Une fragmentos Okazaki</div>
+    </div>
+    <div class="cheat-box">
+      <div class="cheat-title">Meselson &amp; Stahl</div>
+      <div class="cheat-item"><span class="cheat-key">Marcadores</span>¹⁵N pesado · ¹⁴N ligero</div>
+      <div class="cheat-item"><span class="cheat-key">Gen 0</span>Solo banda pesada</div>
+      <div class="cheat-item"><span class="cheat-key">Gen 1</span>Solo híbrida → descarta conservativo</div>
+      <div class="cheat-item"><span class="cheat-key">Gen 2</span>Híbrida + ligera → descarta dispersivo</div>
+      <div class="cheat-item"><span class="cheat-key">Resultado</span>Confirma semiconservativo ✓</div>
+    </div>
+    <div class="cheat-box">
+      <div class="cheat-title">Hebras</div>
+      <div class="cheat-item"><span class="cheat-key">Conductora</span>Molde 3'→5' · continua · 1 cebador</div>
+      <div class="cheat-item"><span class="cheat-key">Rezagada</span>Molde 5'→3' · discontinua · múltiples</div>
+      <div class="cheat-item"><span class="cheat-key">Okazaki</span>Fragmentos de la hebra rezagada</div>
+    </div>
+    <div class="cheat-box">
+      <div class="cheat-title">Telómeros</div>
+      <div class="cheat-item"><span class="cheat-key">Secuencia</span>TTAGGG repetida</div>
+      <div class="cheat-item"><span class="cheat-key">Función</span>Protege genes vitales del acortamiento</div>
+      <div class="cheat-item"><span class="cheat-key">Senescencia</span>Telómero muy corto → deja de dividirse</div>
+      <div class="cheat-item"><span class="cheat-key">Telomerasa</span>Alarga telómeros — activa en embriones</div>
+      <div class="cheat-item"><span class="cheat-key">Cáncer</span>90% reactiva telomerasa → inmortalidad</div>
+    </div>
+    <div class="cheat-box">
+      <div class="cheat-title">Pro vs Euc</div>
+      <div class="cheat-item"><span class="cheat-key">Orígenes</span>1 (pro) vs Miles (euc)</div>
+      <div class="cheat-item"><span class="cheat-key">Cromosoma</span>Circular (pro) · Lineal (euc)</div>
+      <div class="cheat-item"><span class="cheat-key">Enrollamiento</span>Menor (pro) vs Mucho mayor (euc)</div>
+      <div class="cheat-item"><span class="cheat-key">Okazaki</span>~1500 nt (pro) · ~150 nt (euc)</div>
+      <div class="cheat-item"><span class="cheat-key">Histonas</span>No (pro) · Sí deben replicarse (euc)</div>
+    </div>
+  </div>
+  <div class="alert alert-amber" style="margin-top:16px">
+    <span class="alert-icon">★</span>
+    <div><strong>Orden mnemotécnico:</strong> Topo → Helicasa → SSB → Primasa → Pol III → Pol I → Ligasa<br><em>"Todos Hacen Su Parte · III, I, Ligan"</em></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+function showSection(id,el){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el)el.classList.add('active');
+}
+function showTab(group,id,btn){
+  document.querySelectorAll('[id^="'+group+'-"]').forEach(c=>c.classList.remove('active'));
+  const t=document.getElementById(group+'-'+id);
+  if(t)t.classList.add('active');
+  btn.parentElement.querySelectorAll('.btn').forEach(b=>b.classList.remove('active-btn'));
+  btn.classList.add('active-btn');
+}
+function showGen(n,btn){
+  ['gen0','gen1','gen2','gen3'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.remove('active')});
+  const t=document.getElementById('gen'+n);if(t)t.classList.add('active');
+  btn.parentElement.querySelectorAll('.btn').forEach(b=>b.classList.remove('active-btn'));
+  btn.classList.add('active-btn');
+}
+function selectModel(n){
+  [1,2,3].forEach(i=>{document.getElementById('m'+i).classList.remove('selected-m');document.getElementById('md'+i).classList.remove('show')});
+  document.getElementById('m'+n).classList.add('selected-m');
+  document.getElementById('md'+n).classList.add('show');
+}
+function toggleEnzyme(card){card.classList.toggle('expanded')}
+function toggleError(header){
+  const body=header.nextElementSibling;
+  body.classList.toggle('show');
+  header.querySelector('.error-expand').textContent=body.classList.contains('show')?'Cerrar ↑':'Ver ↓';
+}
+const scores={};
+function checkQ(opt,qId,correct){
+  const opts=opt.parentElement.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>o.classList.add('disabled'));
+  opt.classList.add(correct?'correct':'wrong');
+  document.getElementById(qId+'-ok').style.display=correct?'flex':'none';
+  document.getElementById(qId+'-no').style.display=correct?'none':'flex';
+  if(!scores.hasOwnProperty(qId)){scores[qId]=correct?1:0;updateScore();}
+}
+function checkVF(opt,qId,correct){
+  const opts=opt.parentElement.querySelectorAll('.vf-opt');
+  opts.forEach(o=>o.classList.add('disabled'));
+  opt.classList.add(correct?'vf-correct':'vf-wrong');
+  document.getElementById(qId+'-ok').style.display=correct?'flex':'none';
+  document.getElementById(qId+'-no').style.display=correct?'none':'flex';
+  if(!scores.hasOwnProperty(qId)){scores[qId]=correct?1:0;updateScore();}
+}
+function updateScore(){
+  const total=Object.keys(scores).length;
+  const correct=Object.values(scores).reduce((a,b)=>a+b,0);
+  const pct=Math.round((correct/5)*100);
+  document.getElementById('scoreFill').style.width=pct+'%';
+  document.getElementById('scoreText').textContent='Respondidas: '+total+'/5 · Correctas: '+correct;
+  if(total===5){
+    document.getElementById('finalScore').style.display='block';
+    document.getElementById('scoreTitle').textContent='Resultado: '+correct+'/5 ('+pct+'%)';
+    const m=pct<40?'Sigue repasando — revisa las secciones con errores.':pct<80?'Buen resultado — refuerza los conceptos fallidos.':'Excelente — dominas el tema.';
+    document.getElementById('scoreMsg').textContent=m;
+  }
+}
+function updateTelo(val){
+  val=parseInt(val);
+  document.getElementById('teloCount').textContent=val;
+  const w=Math.max(5,70-(val/50)*(70-5));
+  document.getElementById('teloLeft').style.width=w+'px';
+  document.getElementById('teloRight').style.width=w+'px';
+  let msg,color;
+  if(val<15){msg='Telómeros normales — célula joven y sana';color='var(--accent)';}
+  else if(val<30){msg='Telómeros acortados — célula adulta envejeciendo';color='var(--accent3)';}
+  else if(val<45){msg='Telómeros muy cortos — riesgo de senescencia o apoptosis';color='var(--accent4)';}
+  else{msg='Telómeros críticos — la célula deja de dividirse o muere';color='var(--accent4)';}
+  document.getElementById('teloInfo').innerHTML='<span style="color:'+color+'">'+msg+'</span>';
+}
+</script>
+</body>
+</html>
